@@ -2,13 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import tweepy
-import os
-
-# import auth from heroku
-CONSUMER_KEY = os.environ['CONSUMER_KEY']
-CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
-ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
+from secrets import *
 
 # twitter auth
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -33,7 +27,7 @@ class MyStreamListener(tweepy.StreamListener):
 myStreamListener = MyStreamListener()
 myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
 
-myStream.filter(track=["Pretty much everywhere, it's gonna be hot."])
+myStream.filter(track=["Pretty much everywhere its gonna be hot", "Pretty much everywhere it's gonna be hot"])
 
 # favorite all replies
 # if @reply:
