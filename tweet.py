@@ -2,7 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import tweepy
-from secrets import *
+import os
+
+img = os.path.abspath('jacket.jpg')
+
+# import auth from heroku
+CONSUMER_KEY = os.environ['CONSUMER_KEY']
+CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
 
 # twitter auth
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -15,7 +23,7 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
         print(status.user.screen_name, status.text)
-        api.update_status(".@" + status.user.screen_name + " Then I don't need a jacket!", in_reply_to_status_id=status.id)
+        api.update_with_media(img, "@" + status.user.screen_name + " Then I don't need a jacket!", in_reply_to_status_id=status.id)
 
     # error handling
     def on_error(self, status_code):
