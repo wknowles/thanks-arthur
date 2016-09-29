@@ -4,8 +4,6 @@
 import tweepy
 import os
 
-img = os.path.abspath('jacket.jpg')
-
 # import auth from heroku
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
@@ -22,6 +20,7 @@ api = tweepy.API(auth)
 class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
+        img = os.path.abspath('jacket.jpg')
         print(status.user.screen_name, status.text)
         api.update_with_media(img, "@" + status.user.screen_name + " Then I don't need a jacket!", in_reply_to_status_id=status.id)
 
