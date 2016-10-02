@@ -15,12 +15,14 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
+# declare image for tweet
+img = os.path.abspath('jacket.jpg')
+
 
 # override tweepy.StreamListener to add logic to on_status
 class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
-        img = os.path.abspath('jacket.jpg')
         print(status.user.screen_name, status.text)
         api.update_with_media(img, "@" + status.user.screen_name + " Then I don't need a jacket!", in_reply_to_status_id=status.id)
 
